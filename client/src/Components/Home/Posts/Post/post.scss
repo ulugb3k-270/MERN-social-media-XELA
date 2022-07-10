@@ -1,0 +1,115 @@
+.post {
+  max-width: 1092px;
+  width: 95%;
+  margin: 0 auto;
+  padding: 18px;
+  background: white;
+  border-radius: 16px;
+  margin-bottom: 20px;
+
+  &__profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-details {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+
+        a {
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 16px;
+          letter-spacing: 0.02em;
+          text-align: left;
+          color: var(--primary-color-bold);
+        }
+
+        a:hover {
+          text-decoration: underline;
+        }
+
+        p {
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 16px;
+          letter-spacing: 0.03em;
+          text-align: left;
+          color: var(--mute-color);
+        }
+      }
+    }
+
+    .delete-icon{
+      cursor: pointer;
+      font-size: 25px;
+    }
+  }
+
+  &__content {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    .image {
+      object-fit: cover;
+      margin: 0 auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      max-height: 600px;
+    }
+
+    .message {
+      color: var(--primary-color-medium);
+      width: 100%;
+      span {
+        font-weight: 800;
+        cursor: pointer;
+        color: var(--primary-color-dark);
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-action {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      .like,
+      .comment {
+        display: flex;
+        align-items: center;
+        gap: 1px;
+      }
+
+      .like svg.liked{
+        fill: red;
+      }
+    }
+
+    svg {
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .bookmarkFilled{
+        fill: #2077b9;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+.form {
+  position: relative;
+  &__button {
+    background-color: var(--blue-color) !important;
+    color: white;
+    text-transform: Capitalize;
+    color: white !important;
+  }
+
+  .additional {
+    text-transform: Capitalize;
+    background: none;
+    color: var(--blue-color);
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .additional:hover {
+    text-decoration: underline;
+  }
+
+  &__button.success {
+    background-image: linear-gradient(
+      to right,
+      #314755 0%,
+      #26a0da 51%,
+      #314755 100%
+    );
+    margin: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+    background-color: unset !important;
+  }
+  &__button.success:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &__button.danger {
+    background-image: linear-gradient(
+      to right,
+      #d31027 0%,
+      #ea384d 51%,
+      #d31027 100%
+    );
+    padding: 10px 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+  }
+
+  &__button.danger:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+}
