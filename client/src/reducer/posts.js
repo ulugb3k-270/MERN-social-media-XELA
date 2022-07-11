@@ -42,11 +42,13 @@ export const posts = (state = initialState, action) => {
     //     ...state,
     //     localPosts: [...state.localPosts, action.payload],
     //   };
-    // case LIKE_POST:
-    // return{
-    //   ...state,
-    //   localPosts: state.localPosts.map(post => post._id === action.payload._id ? action.payload : post)
-    // }
+
+    
+    case LIKE_POST:
+    return{
+      ...state,
+      localPosts: state.localPosts.map(post => post._id === action.payload._id ? action.payload : post)
+    }
 
     default:
       return state;
