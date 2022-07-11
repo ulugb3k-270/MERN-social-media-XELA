@@ -8,26 +8,31 @@ import Post from "./Post/Post";
 
 // REDUX
 import { useSelector } from "react-redux";
-import { getPosts, getPopularPosts } from "../../../actions/posts";
+import { getPosts, getPopularPosts, getLatestPosts } from "../../../actions/posts";
 import { useDispatch } from "react-redux";
 
 // MUI
 import { CircularProgress } from "@material-ui/core";
+import { useEffect } from "react";
 
 const Posts = () => {
   const [activeButton, setActiveButton] = useState(true);
+  const { localPosts } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
   const arr = [
     {
       creatorId: "62c5dc28b293f7e593d1e1a0",
       creatorName: "Ulugbek",
-      creatorImage: "https://firebasestorage.googleapis.com/v0/b/shorturl-phototourl.appspot.com/o/message%2F810472051%2Fimage?alt=media&token=1215db97-115f-4ddb-bf2a-ae43592f31c9",
+      creatorImage:
+        "https://firebasestorage.googleapis.com/v0/b/shorturl-phototourl.appspot.com/o/message%2F810472051%2Fimage?alt=media&token=1215db97-115f-4ddb-bf2a-ae43592f31c9",
       creatorUsername: "ulugbek",
       creatorLocation: "uzb",
       message: "HAPPY NEW YEAR",
-      image: "https://external-preview.redd.it/0n6iBJzBY-gLgb6Yn8rEF7gKGqNOLM2JrtZTd2BoWqg.png?auto=webp&s=f68de69a27bb3a0831695b86574f4ab129b65c9f",
+      image:
+        "https://external-preview.redd.it/0n6iBJzBY-gLgb6Yn8rEF7gKGqNOLM2JrtZTd2BoWqg.png?auto=webp&s=f68de69a27bb3a0831695b86574f4ab129b65c9f",
       likes: ["123", "32"],
       createdAt: new Date(),
-      verified: true
+      verified: true,
     },
     {
       creatorId: "9992",
@@ -36,13 +41,17 @@ const Posts = () => {
       creatorUsername: "nobody",
       creatorLocation: "uzb",
       message: "TEST",
-      image: "https://media-exp1.licdn.com/dms/image/C5612AQFgrBZUgERfwA/article-inline_image-shrink_1000_1488/0/1520194990944?e=1663200000&v=beta&t=59vDLfqMgaVdHbWcUwnEf8dZxvAQAkc5JbGCIqmpjzk",
-      likes: ["123", "32", '123'],
+      image:
+        "https://media-exp1.licdn.com/dms/image/C5612AQFgrBZUgERfwA/article-inline_image-shrink_1000_1488/0/1520194990944?e=1663200000&v=beta&t=59vDLfqMgaVdHbWcUwnEf8dZxvAQAkc5JbGCIqmpjzk",
+      likes: ["123", "32", "123"],
       createdAt: new Date(),
-      verified: false
+      verified: false,
     },
   ];
-  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPosts())
+  }, [dispatch]);
+  console.log(localPosts);
   return (
     <div className="posts">
       <div className="posts__top">
@@ -52,6 +61,7 @@ const Posts = () => {
             className={`posts__top-btn ${activeButton && "active"}`}
             onClick={() => {
               setActiveButton(true);
+              dispatch({type: "CLEAR_POSTS"})
               dispatch(getPosts());
             }}
           >
@@ -69,9 +79,9 @@ const Posts = () => {
         </div>
       </div>
       <div className="posts__post">
-        {true ? (
+        {localPosts.length ? (
           <>
-            {arr?.map((post, id) => (
+            {localPosts?.map((post, id) => (
               <Post post={post} key={id} />
             ))}
           </>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://xela-social-media-backend.herokuapp.com/" });
-// const API = axios.create({ baseURL: "http://localhost:9000" });
+// const API = axios.create({ baseURL: "https://xela-social-media-backend.herokuapp.com/" });
+const API = axios.create({ baseURL: "http://localhost:9000" });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
@@ -14,7 +14,6 @@ API.interceptors.request.use((req) => {
 });
 
 export const getPosts = () => API.get("/posts");
-export const getPopularPosts = () => API.get("/posts/popularPosts")
 
 export const createPost = (formData) => API.post("/posts", formData);
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);

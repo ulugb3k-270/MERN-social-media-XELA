@@ -11,17 +11,6 @@ export const getPost = async (req, res) => {
   }
 };
 
-export const popularPosts = async (req, res) => {
-  try {
-    const posts = await PostMessage.find();
-
-    const filteredPosts = posts.sort((a, b) => a.likes.length - b.likes.length);
-
-    res.status(201).send(filteredPosts)
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 export const createPost = async (req, res) => {
   const post = req.body;
