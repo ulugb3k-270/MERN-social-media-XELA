@@ -19,9 +19,11 @@ import { logout } from "../../actions/auth";
 const Aside = () => {
   const { authData } = useSelector((state) => state.auth);
   const [isSignIn, setIsSignIn] = useState(true);
+  const [randomUserFollowers, setRandomUserFollowers] = useState([]);
   const [userInformations, setUserInformations] = useState(
     JSON.parse(localStorage.getItem("profile"))
   );
+
   const dispatch = useDispatch();
 
   const logOut = () => {
@@ -34,16 +36,26 @@ const Aside = () => {
     // JWT ...
     if (token) {
       const decodedToken = decode(token);
-      dispatch({type: "SET_USER"})
+      dispatch({ type: "SET_USER" });
 
       if (decodedToken.exp * 1000 < new Date().getTime()) logOut();
     }
   }, [dispatch]);
 
   useEffect(() => {
-    setUserInformations(JSON.parse(localStorage.getItem("profile")))
-    setIsSignIn(true)
-  }, [authData])
+    const randomNumber = Math.floor(
+      Math.random() * authData?.user.followers.length - 3
+    );
+     setRandomUserFollowers(authData?.user.followers.slice(
+      randomNumber,
+      randomNumber + 3
+    )) 
+  }, [authData]);
+
+  useEffect(() => {
+    setUserInformations(JSON.parse(localStorage.getItem("profile")));
+    setIsSignIn(true);
+  }, [authData]);
 
   const IsUserLoggedIn = () => {
     if (authData?.user) {
@@ -244,40 +256,27 @@ const Aside = () => {
           </nav>
 
           <div className="aside__contacts">
-            <h3>Contacts</h3>
-            <ul className="aside__contacts-list">
-              <li className="aside__contacts-item">
-                <img
-                  src="https://firebasestorage.googleapis.com/v0/b/shorturl-phototourl.appspot.com/o/message%2F9723863815%2Fimage?alt=media&token=400daf36-e36b-48f9-87a6-ec6af7262642"
-                  alt=""
-                />
-                <div>
-                  <Link to="/">Julie Mendez</Link>
-                  <p>Memphis, TN, US</p>
-                </div>
-              </li>
-              <li className="aside__contacts-item">
-                <img
-                  src="https://firebasestorage.googleapis.com/v0/b/shorturl-phototourl.appspot.com/o/message%2F9723863815%2Fimage?alt=media&token=400daf36-e36b-48f9-87a6-ec6af7262642"
-                  alt=""
-                />
-                <div>
-                  <Link to="/">Julie Mendez</Link>
-                  <p>Memphis, TN, US</p>
-                </div>
-              </li>
-              <li className="aside__contacts-item">
-                <img
-                  src="https://firebasestorage.googleapis.com/v0/b/shorturl-phototourl.appspot.com/o/message%2F9723863815%2Fimage?alt=media&token=400daf36-e36b-48f9-87a6-ec6af7262642"
-                  alt=""
-                />
-                <div>
-                  <Link to="/">Julie Mendez</Link>
-                  <p>Memphis, TN, US</p>
-                </div>
-              </li>
-              <Link to="/">See More</Link>
-            </ul>
+            <h3>Followers</h3>
+            {!authData?.user && (
+              <p className="aside__contacts-info">Sign in to see followers</p>
+            )}
+            {!authData?.user || authData?.user.followers.length ? (
+              randomUserFollowers?.map((user) => (
+                <ul className="aside__contacts-list">
+                  <li className="aside__contacts-item">
+                    <img src={user.image} alt="" />
+                    <div>
+                      <Link to="/">{user.fullName}</Link>
+                      <p>{user.userName}</p>
+                    </div>
+                  </li>
+                </ul>
+              ))
+            ) : (
+              <p className="aside__contacts-info">
+                You have no followers at the moment
+              </p>
+            )}
           </div>
         </>
       )}

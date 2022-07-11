@@ -1,5 +1,5 @@
 .aside {
-  padding: 40px;
+  padding: 20px 40px;
   max-width: 370px;
   width: 100%;
   display: flex;
@@ -112,7 +112,7 @@
     &-list {
       display: flex;
       flex-direction: column;
-      row-gap: 10px;
+      row-gap: 5px;
       width: 100%;
     }
 
@@ -136,6 +136,7 @@
 
   &__contacts {
     margin-top: 32px;
+    min-height: 400px;
 
     h3 {
       font-size: 16px;
@@ -144,6 +145,14 @@
       letter-spacing: 0em;
       text-align: left;
       color: var(--primary-color-bold);
+    }
+
+    &-info{
+      color: var(--mute-color);
+      font-style: italic;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 10px;
     }
 
     &-list {

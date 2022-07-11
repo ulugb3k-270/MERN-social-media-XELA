@@ -68,10 +68,11 @@ const Post = ({ post }) => {
             <p>@{post.creatorUsername}</p>
           </div>
         </div>
-        {checkAdmin(post?.creatorId) &&
-          (post?.creatorId === user?.user?._id && (
-            <AiOutlineDelete className="delete-icon" />
-          ))}
+        {checkAdmin(user?.user?._id) || post?.creatorId === user?.user?._id ? (
+          <AiOutlineDelete className="delete-icon" />
+        ) : (
+          ""
+        )}
       </div>
 
       <div className="post__content">
