@@ -34,12 +34,12 @@ export const getLatestPosts = () => async (dispatch) => {
 };
 
 export const createPost = (formData) => async (dispatch) => {
-  //   try {
-  //     const { data } = await api.createPost(formData);
-  //     dispatch({ type: CREATE_POST, payload: data });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
+    try {
+      const { data } = await api.createPost(formData);
+      dispatch({ type: CREATE_POST, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
 };
 
 export const likePost = (id) => async (dispatch) => {

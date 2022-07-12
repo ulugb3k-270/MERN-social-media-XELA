@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./form.scss";
 
 // COMPONENTS
-import Loader from "./Loader/Loader";
+import Loader from "../../Loader/Loader";
 
 // MUI
 import {

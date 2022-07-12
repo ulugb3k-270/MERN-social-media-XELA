@@ -13,9 +13,10 @@ import { Button, TextField } from "@material-ui/core";
 import FileBase from "react-file-base64";
 
 // REDUX
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../actions/posts";
-
+import { CREATING_LOADING } from "../../constants/actionTypes";
+import Loader from "../Loader/Loader";
 
 const postDataObj = {
   message: "",
@@ -25,9 +26,11 @@ const Footer = ({ isUploading }) => {
   const [postData, setPostData] = useState(postDataObj);
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const { isLoading } = useSelector((state) => state.posts);
 
   const submit = (e) => {
     e.preventDefault();
+    dispatch({ type: CREATING_LOADING });
     dispatch(
       createPost({
         ...postData,
@@ -181,6 +184,7 @@ const Footer = ({ isUploading }) => {
 
       <div className={`footer__form ${isUploading && "active"}`}>
         <form action="" className="footer__form-box" onSubmit={submit}>
+          {isLoading && <Loader />}
           <h3>Create New Post</h3>
           <TextField
             fullWidth

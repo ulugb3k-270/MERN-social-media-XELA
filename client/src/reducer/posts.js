@@ -4,6 +4,7 @@ import {
   LIKE_POST,
   GET_POPULAR_POSTS,
   GET_LATEST_POSTS,
+  CREATING_LOADING,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -21,14 +22,19 @@ export const posts = (state = initialState, action) => {
         localPosts: action.payload,
       };
 
-    case GET_POPULAR_POSTS: {
+    case GET_POPULAR_POSTS:
       return {
         ...state,
         localPosts: state.localPosts.sort(
           (a, b) => a.likes.length - b.likes.length
         ),
       };
-    }
+
+    case CREATING_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
 
     case "CLEAR_POSTS": {
       return {
@@ -37,18 +43,20 @@ export const posts = (state = initialState, action) => {
       };
     }
 
-    // case CREATE_POST:
-    //   return {
-    //     ...state,
-    //     localPosts: [...state.localPosts, action.payload],
-    //   };
+    case CREATE_POST:
+      return {
+        ...state,
+        localPosts: [...state.localPosts, action.payload],
+        isLoading: false,
+      };
 
-    
     case LIKE_POST:
-    return{
-      ...state,
-      localPosts: state.localPosts.map(post => post._id === action.payload._id ? action.payload : post)
-    }
+      return {
+        ...state,
+        localPosts: state.localPosts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
 
     default:
       return state;
